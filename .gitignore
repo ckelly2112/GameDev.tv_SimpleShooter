@@ -11,7 +11,7 @@ Saved
 *.xcodeproj
 *.xcworkspace
 # Ignoring Content for now
-Content/Assets/
+Content/AssetPacks/
 
 .vs/S05_TestingGrounds/v15/ipch/
 .vs/
