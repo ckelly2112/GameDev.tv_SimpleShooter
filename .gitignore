@@ -14,7 +14,7 @@ Saved
 Content/AssetPacks/
 
 # Ignoreing Build Data
-BuiltData.uasset
+*BuiltData.uasset
 
 .vs/S05_TestingGrounds/v15/ipch/
 .vs/
