@@ -1,0 +1,10 @@
+{
+	"files.exclude": {
+		"E:/Unreal_Games/SimpleShooter/.vs": true,
+		"E:/Unreal_Games/SimpleShooter/.vscode": true,
+		"E:/Unreal_Games/SimpleShooter/Content": true,
+		"E:/Unreal_Games/SimpleShooter/DerivedDataCache": true,
+		"E:/Unreal_Games/SimpleShooter/Intermediate": true,
+		"E:/Unreal_Games/SimpleShooter/Saved": true
+	}
+}
