@@ -36,4 +36,10 @@ private:
 	UPROPERTY(EditAnywhere) // TODO Change to Defaults during production
 	UParticleSystem* MuzzleFlash = nullptr;
 
+	UPROPERTY(EditAnywhere)
+	UParticleSystem* BulletContact = nullptr;
+
+	UPROPERTY(EditDefaultsOnly)
+	float MaxRange = 1000.f;
+
 };

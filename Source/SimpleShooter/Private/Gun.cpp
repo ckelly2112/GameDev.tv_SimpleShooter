@@ -2,8 +2,10 @@
 
 
 #include "Gun.h"
-#include "Kismet/GameplayStatics.h"
+#include "DrawDebugHelpers.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Engine/World.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AGun::AGun()
@@ -23,7 +25,6 @@ AGun::AGun()
 void AGun::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
@@ -36,5 +37,20 @@ void AGun::Tick(float DeltaTime)
 void AGun::PullTrigger()
 {
 	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Mesh, TEXT("MuzzleFlashSocket"));	
+
+	AController* OwnerController = Cast<APawn>(GetOwner())->GetController();
+	if(!ensure(OwnerController)){return;}
+
+	FVector GunLocation(0);
+	FRotator GunRotation(0);
+	OwnerController->GetPlayerViewPoint(GunLocation, GunRotation);
+
+	FVector End = GunLocation + GunRotation.Vector() * MaxRange;
+	FHitResult BulletHit;
+
+	if(GetWorld()->LineTraceSingleByChannel(BulletHit, GunLocation, End, ECollisionChannel::ECC_GameTraceChannel1))
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), BulletContact, BulletHit.Location, (-GunRotation.Vector()).Rotation());
+	}
 }
 
