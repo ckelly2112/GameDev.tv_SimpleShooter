@@ -39,6 +39,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	UParticleSystem* BulletContact = nullptr;
 
+	UPROPERTY(EditAnywhere)
+	float Damage = 10.f;
+	
 	UPROPERTY(EditDefaultsOnly)
 	float MaxRange = 1000.f;
 

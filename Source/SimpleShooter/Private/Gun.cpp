@@ -51,6 +51,13 @@ void AGun::PullTrigger()
 	if(GetWorld()->LineTraceSingleByChannel(BulletHit, GunLocation, End, ECollisionChannel::ECC_GameTraceChannel1))
 	{
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), BulletContact, BulletHit.Location, (-GunRotation.Vector()).Rotation());
+		FPointDamageEvent DamageEvent(Damage, BulletHit, -GunRotation.Vector(), nullptr);
+		AActor* ActorHit = BulletHit.GetActor();
+		if(ensure(ActorHit))
+		{
+			ActorHit->TakeDamage(Damage, DamageEvent, OwnerController, this);
+			UE_LOG(LogTemp, Warning, TEXT("Actor who just got SNIPED: %s"), *ActorHit->GetName());
+		}
 	}
 }
 
