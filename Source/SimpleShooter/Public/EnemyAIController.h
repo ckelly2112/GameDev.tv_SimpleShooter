@@ -25,7 +25,8 @@ private:
 	//UPROPERTY(EditDefaultsOnly)
 	//float AcceptanceRadius = 300.f;
 
-	//APawn* Player = nullptr;
+	APawn* Player = nullptr;
+	APawn* ControlledPawn = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	class UBehaviorTree* AIBehavior;
