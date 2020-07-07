@@ -13,5 +13,20 @@ UCLASS()
 class SIMPLESHOOTER_API AEnemyAIController : public AAIController
 {
 	GENERATED_BODY()
-	
+public:
+	virtual void Tick(float DeltaTime) override;
+
+protected:
+	virtual void BeginPlay() override;
+
+
+private:
+
+	//UPROPERTY(EditDefaultsOnly)
+	//float AcceptanceRadius = 300.f;
+
+	//APawn* Player = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	class UBehaviorTree* AIBehavior;
 };

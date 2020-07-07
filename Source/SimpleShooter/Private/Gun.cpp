@@ -5,6 +5,7 @@
 #include "DrawDebugHelpers.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
+#include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -40,11 +41,10 @@ void AGun::PullTrigger()
 
 	AController* OwnerController = Cast<APawn>(GetOwner())->GetController();
 	if(!ensure(OwnerController)){return;}
-
+	
 	FVector GunLocation(0);
 	FRotator GunRotation(0);
 	OwnerController->GetPlayerViewPoint(GunLocation, GunRotation);
-
 	FVector End = GunLocation + GunRotation.Vector() * MaxRange;
 	FHitResult BulletHit;
 
@@ -53,7 +53,7 @@ void AGun::PullTrigger()
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), BulletContact, BulletHit.Location, (-GunRotation.Vector()).Rotation());
 		FPointDamageEvent DamageEvent(Damage, BulletHit, -GunRotation.Vector(), nullptr);
 		AActor* ActorHit = BulletHit.GetActor();
-		if(ensure(ActorHit))
+		if(ActorHit)
 		{
 			ActorHit->TakeDamage(Damage, DamageEvent, OwnerController, this);
 			UE_LOG(LogTemp, Warning, TEXT("Actor who just got SNIPED: %s"), *ActorHit->GetName());
