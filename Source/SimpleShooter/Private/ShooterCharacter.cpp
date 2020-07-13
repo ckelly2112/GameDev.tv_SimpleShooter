@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/InputComponent.h"
+#include "Components/CapsuleComponent.h"
 
 // Sets default values
 AShooterCharacter::AShooterCharacter()
@@ -42,6 +43,12 @@ float AShooterCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Dama
 	
 	CurrentHealth -= DamageToApply;
 	UE_LOG(LogTemp, Warning, TEXT("Damage Applied: %f, CurrentHealth = %f"), DamageToApply, CurrentHealth);
+
+	if (bIsDead())
+	{
+		DetachFromControllerPendingDestroy();
+		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
 	
 	return DamageToApply;
 }

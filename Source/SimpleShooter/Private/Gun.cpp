@@ -47,8 +47,11 @@ void AGun::PullTrigger()
 	OwnerController->GetPlayerViewPoint(GunLocation, GunRotation);
 	FVector End = GunLocation + GunRotation.Vector() * MaxRange;
 	FHitResult BulletHit;
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+	Params.AddIgnoredActor(GetOwner());
 
-	if(GetWorld()->LineTraceSingleByChannel(BulletHit, GunLocation, End, ECollisionChannel::ECC_GameTraceChannel1))
+	if(GetWorld()->LineTraceSingleByChannel(BulletHit, GunLocation, End, ECollisionChannel::ECC_GameTraceChannel1, Params))
 	{
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), BulletContact, BulletHit.Location, (-GunRotation.Vector()).Rotation());
 		FPointDamageEvent DamageEvent(Damage, BulletHit, -GunRotation.Vector(), nullptr);
