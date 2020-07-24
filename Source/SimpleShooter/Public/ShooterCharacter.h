@@ -31,6 +31,9 @@ public:
 
 	UFUNCTION(BlueprintPure)
 	bool bIsDead() const;
+	UFUNCTION(BlueprintPure)
+	float GetHealthPercent() const;
+
 	void FireGun();
 
 private:
