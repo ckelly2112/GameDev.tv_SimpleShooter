@@ -4,6 +4,13 @@
 #include "ShooterPlayerController.h"
 #include "TimerManager.h"
 #include "Blueprint/UserWidget.h"
+
+void AShooterPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+	HUD = CreateWidget(this, HeadsUpDisplay);
+	HUD->AddToViewport();
+}
 void AShooterPlayerController::GameHasEnded(class AActor* EndGameFocus, bool bIsWinner)
 {
 	Super::GameHasEnded(EndGameFocus, bIsWinner);
@@ -13,6 +20,7 @@ void AShooterPlayerController::GameHasEnded(class AActor* EndGameFocus, bool bIs
 		UUserWidget* WinScreen = CreateWidget(this, WinScreenClass);
 		if (WinScreen)
 		{
+			if (HUD) { HUD->RemoveFromViewport(); }
 			WinScreen->AddToViewport();
 		}
 	}
@@ -21,6 +29,7 @@ void AShooterPlayerController::GameHasEnded(class AActor* EndGameFocus, bool bIs
 		UUserWidget* LoseScreen = CreateWidget(this, LoseScreenClass);
 		if (LoseScreen)
 		{
+			if (HUD) { HUD->RemoveFromViewport(); }
 			LoseScreen->AddToViewport();
 		}
 	}

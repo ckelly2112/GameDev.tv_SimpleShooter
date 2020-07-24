@@ -27,6 +27,8 @@ public:
 
 
 private:
+
+	AController* OwnerController = nullptr;
 	UPROPERTY(VisibleAnywhere)
 	USceneComponent* Root;
 
@@ -35,14 +37,21 @@ private:
 
 	UPROPERTY(EditAnywhere) // TODO Change to Defaults during production
 	UParticleSystem* MuzzleFlash = nullptr;
+	UPROPERTY(EditAnywhere)
+	USoundBase* MuzzleSound = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	UParticleSystem* BulletContact = nullptr;
-
+	UPROPERTY(EditAnywhere)
+	USoundBase* ContactSound = nullptr;
+	
 	UPROPERTY(EditAnywhere)
 	float Damage = 10.f;
 	
 	UPROPERTY(EditDefaultsOnly)
 	float MaxRange = 1000.f;
+
+	bool GunTrace(FHitResult& Hit, FVector& ShotDirection);
+	AController* GetOwnerController() const;
 
 };
