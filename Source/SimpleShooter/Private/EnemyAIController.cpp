@@ -4,7 +4,7 @@
 #include "EnemyAIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Kismet/GameplayStatics.h"
-
+#include "ShooterCharacter.h"
 void AEnemyAIController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -34,4 +34,15 @@ void AEnemyAIController::Tick(float DeltaTime)
 		GetBlackboardComponent()->ClearValue(TEXT("PlayerLocation"));
 	}
 
+}
+
+bool AEnemyAIController::IsDead() const
+{
+	AShooterCharacter* ControlledCharacter = Cast<AShooterCharacter>(GetPawn());
+	if (ControlledCharacter)
+	{
+		return ControlledCharacter->bIsDead();
+	}
+
+	return true;
 }
